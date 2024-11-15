@@ -7,9 +7,9 @@ class Terbilang {
 
   String createInt(int number) {
     if (language == 'id') {
-      return _kata(number);
+      return _kata(number).trim();
     } else {
-      return _kataEn(number);
+      return _kataEn(number).trim();
     }
   }
 
