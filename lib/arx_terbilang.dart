@@ -1,88 +1,66 @@
 library arx_terbilang;
 
 class Terbilang {
-  final String language;
+  static final List<String> _dicTerbilang = [
+    "",
+    "satu",
+    "dua",
+    "tiga",
+    "empat",
+    "lima",
+    "enam",
+    "tujuh",
+    "delapan",
+    "sembilan",
+    "sepuluh",
+    "sebelas"
+  ];
 
-  Terbilang({this.language = 'id'});
-
-  String createInt(int number) {
-    if (language == 'id') {
-      return _kata(number).trim();
-    } else {
-      return _kataEn(number).trim();
-    }
-  }
-
-  String _kataEn(int number) {
-    List<String> angka = [
-      "",
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "six",
-      "seven",
-      "eight",
-      "nine",
-      "ten",
-      "eleven",
-    ];
+  static String _terbilang(int angka) {
     String temp = "";
-    if (number < 12) {
-      temp = " ${angka[number]}";
-    } else if (number < 20) {
-      temp = "${_kataEn(number - 10)}teen";
-    } else if (number < 100) {
-      temp = "${_kataEn(number ~/ 10)}ty${_kataEn(number % 10)}";
-    } else if (number < 200) {
-      temp = " one hundred${_kataEn(number - 100)}";
-    } else if (number < 1000) {
-      temp = "${_kataEn(number ~/ 100)} hundred${_kataEn(number % 100)}";
-    } else if (number < 2000) {
-      temp = " one thousand${_kataEn(number - 1000)}";
-    } else if (number < 1000000) {
-      temp = "${_kataEn(number ~/ 1000)} thousand${_kataEn(number % 1000)}";
-    } else if (number < 1000000000) {
+    if (angka < 12) {
+      temp = " ${_dicTerbilang[angka]}";
+    } else if (angka < 20) {
+      temp = "${_terbilang(angka - 10)} belas";
+    } else if (angka < 100) {
+      temp = "${_terbilang(angka ~/ 10)} puluh${_terbilang(angka % 10)}";
+    } else if (angka < 200) {
+      temp = " seratus${_terbilang(angka - 100)}";
+    } else if (angka < 1000) {
+      temp = "${_terbilang(angka ~/ 100)} ratus${_terbilang(angka % 100)}";
+    } else if (angka < 2000) {
+      temp = " seribu${_terbilang(angka - 1000)}";
+    } else if (angka < 1000000) {
+      temp = "${_terbilang(angka ~/ 1000)} ribu${_terbilang(angka % 1000)}";
+    } else if (angka < 1000000000) {
       temp =
-          "${_kataEn(number ~/ 1000000)} million${_kataEn(number % 1000000)}";
+          "${_terbilang(angka ~/ 1000000)} juta${_terbilang(angka % 1000000)}";
+    } else if (angka < 1000000000000) {
+      temp =
+          "${_terbilang(angka ~/ 1000000000)} miliar${_terbilang(angka % 1000000000)}";
+    } else if (angka < 1000000000000000) {
+      temp =
+          "${_terbilang(angka ~/ 1000000000000)} triliun${_terbilang(angka % 1000000000000)}";
+    } else if (angka < 1000000000000000000) {
+      temp =
+          "${_terbilang(angka ~/ 1000000000000000)} kuadriliun${_terbilang(angka % 1000000000000000)}";
     }
     return temp;
   }
 
-  String _kata(int number) {
-    List<String> angka = [
-      "",
-      "satu",
-      "dua",
-      "tiga",
-      "empat",
-      "lima",
-      "enam",
-      "tujuh",
-      "delapan",
-      "sembilan",
-      "sepuluh",
-      "sebelas",
-    ];
-    String temp = "";
-    if (number < 12) {
-      temp = " ${angka[number]}";
-    } else if (number < 20) {
-      temp = "${_kata(number - 10)} belas";
-    } else if (number < 100) {
-      temp = "${_kata(number ~/ 10)} puluh${_kata(number % 10)}";
-    } else if (number < 200) {
-      temp = " seratus${_kata(number - 100)}";
-    } else if (number < 1000) {
-      temp = "${_kata(number ~/ 100)} ratus${_kata(number % 100)}";
-    } else if (number < 2000) {
-      temp = " seribu${_kata(number - 1000)}";
-    } else if (number < 1000000) {
-      temp = "${_kata(number ~/ 1000)} ribu${_kata(number % 1000)}";
-    } else if (number < 1000000000) {
-      temp = "${_kata(number ~/ 1000000)} juta${_kata(number % 1000000)}";
+  static String angka(int number, {String? prefix, String? suffix}) {
+    final String temp = _terbilang(number);
+
+    final whitespaceRE = RegExp(r"(?! )\s+| \s+");
+
+    var stringTerbilang = temp.replaceAll(whitespaceRE, " ").trim();
+
+    if (suffix != null) {
+      stringTerbilang = "$stringTerbilang $suffix";
     }
-    return temp;
+    if (prefix != null) {
+      stringTerbilang = "$prefix $stringTerbilang";
+    }
+    return stringTerbilang;
   }
 }
