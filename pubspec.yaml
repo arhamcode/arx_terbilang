@@ -1,7 +1,7 @@
 name: arx_terbilang
 description: "Terbilang angka dalam bahasa Indonesia dan Inggris"
 version: 0.0.1
-homepage:
+repository: "https://github.com/arhamcode/arx_terbilang"
 
 environment:
   sdk: ^3.5.4
